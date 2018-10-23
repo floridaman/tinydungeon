@@ -1,0 +1,36 @@
+.flex-container{
+    display: flex;
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+#maze1_wall_table{
+    width: 500px;
+    border: 1px solid black;
+    table-layout: fixed;
+    display: none;
+}
+
+td {
+    padding: 0;
+    font-family: monospace;
+    width: 10px;
+    height: 10px;
+    font-size: 8px;
+}
+
+#maze1{
+    position: absolute;
+    z-index: 0;
+}
+
+#debug-overlay{
+    position: absolute;
+    z-index: 1;
+}
+
+body{
+    background-color: black;
+}
