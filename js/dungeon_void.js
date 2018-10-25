@@ -34,6 +34,7 @@ let initial = [0,0];
 ctx.fillStyle = "#000000";
 ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
+/*
 //build floor array
 let floorImg = [];
 let floorImages = ['floor1','floor2','floor3'];
@@ -48,6 +49,7 @@ function getRndFloorImg(){
    let rand = getRndInteger(0,floorImg.length - 1);
    return floorImg[rand];
 }
+*/
 
 var pathDict = {
     'n': 1,
@@ -126,67 +128,6 @@ tileDict.perspective = {
         image: 'tiles/none.png',
 };
 
-for(let tileType in tileDict){
-    let tile = tileDict[tileType];
-    let imageString = tile.image;
-    tile.image = new Image();
-    tile.image.src = imageString;
-}
-
-/*
-◼◼◼
-◼◼◼
-◼◼◼
-*/
-
-/*
-◻◻◻
-◻◼◼
-◻◼◻
-*/
-
-/*
-◻◻◻
-◼◼◼
-◻◻◻
-*/
-
-/*
-◻◻◻
-◼◼◼
-◻◼◻
-*/
-
-/*
-◻◼◻
-◼◼◼
-◻◻◻
-*/
-
-/*
-◻◻◻
-◼◼◻
-◻◼◻
-*/
-
-/*
-◻◼◻
-◼◼◻
-◻◻◻
-*/
-
-/*
-◻◼◻
-◻◼◼
-◻◻◻
-*/
-
-/*
-◻◻◻
-◻◻◻
-◼◼◼
-*/
-
 function getTile(x,y){
     let maskValue = checkNeighbor(x,y);
     let img;
@@ -248,6 +189,18 @@ function getTile(x,y){
     }
 }
 
+
+document.addEventListener("DOMContentLoaded", function(){
+    for(let tileType in tileDict){
+        let tile = tileDict[tileType];
+        let imageString = tile.image;
+        tile.image = new Image();
+        tile.image.src = imageString;
+    }
+
+    generateMaze();
+});
+
 function drawMaze() {
     for (let y=0; y<=height - 1; y++){
         for (let x=0; x<=width - 1; x++) {
@@ -274,10 +227,8 @@ function checkNeighbor(x,y){
 
     let walls = {
         n: [x,y - 1],
-        //n2: [x,y - 2],
         e: [x+1,y],
         s: [x,y+1],
-        //s2: [x,y+2],
         w: [x-1,y],
     };
 
@@ -300,25 +251,16 @@ function checkNeighbor(x,y){
 
     for(let direction in directionDict){
         let tempMask;
-        let neighborCoord = directionDict[direction];
+        //let neighborCoord = directionDict[direction];
         let wallCoord = walls[direction];
-        //let northWallCoord = walls[direction];
-        let nx = neighborCoord[0];
-        let ny = neighborCoord[1];
 
         let wx = wallCoord[0];
         let wy = wallCoord[1];
-
-        //let nwx = northWallCoord[0];
-        //let nwy = northWallCoord[1];
-
-
 
         if ((wx < 0 || wx > width-1) || (wy < 0 || wy > height-1)){
             //mask = mask | pathDict[direction];
         } else{
 
-            //let neighbor = visited[neighborCoord[0]][neighborCoord[1]];
             if (visited[wx][wy]){
                 tempMask = pathDict[direction];
             }
@@ -328,11 +270,6 @@ function checkNeighbor(x,y){
     bitMap[x][y]=mask;
     return mask;
 }
-
-
-generateMaze();
-
-
 
 function generateMaze(){
     iterations = 0;
